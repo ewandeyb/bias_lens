@@ -1,2 +1,2 @@
-# news_aggregator
-A news aggregator site that checks the political biases of Philippine News articles
+# BiasLens
+BiasCheck is a browser extension designed to detect political bias in news articles in real time. It helps users identify subtle or overt biases, promotes media literacy, and encourages balanced news consumption by recommending alternative perspectives—all without disrupting the browsing experience. Unlike existing tools that analyze entire websites or require users to visit external platforms, BiasCheck focuses on individual articles and integrates seamlessly into the user's workflow.
