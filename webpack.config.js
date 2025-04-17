@@ -14,10 +14,10 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: "/src/manifest.json", to: "manifest.json" },
-        { from: "/src/popup/popup.html", to: "popup.html" },
-        { from: "/src/popup/popup.css", to: "popup.css" },
-        { from: "/src/images", to: "images" },
+        { from: "src/manifest.json", to: "manifest.json" },
+        { from: "src/popup/popup.html", to: "popup.html" },
+        { from: "src/popup/popup.css", to: "popup.css" },
+        { from: "src/images", to: "images" },
       ],
     }),
   ],
