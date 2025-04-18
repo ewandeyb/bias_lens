@@ -23,6 +23,8 @@ function scrapeArticle() {
     case "RAPPLER":
       data.textContent = parseRappler(data.textContent);
       break;
+    case "INQUIRER.net":
+      data.textContent = parseInquirer(data.textContent);
     default:
       break;
   }
@@ -36,8 +38,16 @@ function scrapeArticle() {
  * ============================================================================
  */
 function parseRappler(textContent) {
+  // Remove "AI rappler generated message"
   let pattern = /.*? – (.*) –.*/s;
   return textContent.replace(pattern, "$1");
+}
+function parseInquirer(textContent) {
+  // Remove subscription-related messages
+  return textContent
+    .replace(/Your subscription could not be saved\. Please try again\./g, "")
+    .replace(/Your subscription has been successful\./g, "")
+    .trim();
 }
 /**
  * ============================================================================
