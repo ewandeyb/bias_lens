@@ -19,6 +19,14 @@ function scrapeArticle() {
 
   let data = { url, title, textContent, siteName };
 
+  switch (data.siteName) {
+    case "RAPPLER":
+      data.textContent = parseRappler(data.textContent);
+      break;
+    default:
+      break;
+  }
+
   return data;
 }
 
@@ -27,7 +35,10 @@ function scrapeArticle() {
  * SITE SPECIFIC PARSING
  * ============================================================================
  */
-
+function parseRappler(textContent) {
+  let pattern = /.*? – (.*) –.*/s;
+  return textContent.replace(pattern, "$1");
+}
 /**
  * ============================================================================
  * DEBUGGING CODE
