@@ -25,6 +25,7 @@ function scrapeArticle() {
       break;
     case "INQUIRER.net":
       data.textContent = parseInquirer(data.textContent);
+      break;
     default:
       break;
   }
