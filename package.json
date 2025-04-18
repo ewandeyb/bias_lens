@@ -1,0 +1,19 @@
+{
+  "name": "bias_lens",
+  "version": "1.0.0",
+  "description": "BiasCheck is a browser extension designed to detect political bias in news articles in real time. It helps users identify subtle or overt biases, promotes media literacy, and encourages balanced news consumption by recommending alternative perspectives—all without disrupting the browsing experience. Unlike existing tools that analyze entire websites or require users to visit external platforms, BiasCheck focuses on individual articles and integrates seamlessly into the user's workflow.",
+  "main": "background.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js --progress",
+    "watch": "webpack --config webpack.config.js --progress",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "copy-webpack-plugin": "^13.0.0",
+    "webpack": "^5.99.5",
+    "webpack-cli": "^6.0.1"
+  }
+}

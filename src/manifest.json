@@ -1,8 +1,8 @@
 {
+  "manifest_version": 3,
   "name": "Bias Lens",
   "description": "A tool to analyze and visualize bias in text data.",
   "version": "1.0",
-  "manifest_version": 3,
   "permissions": ["scripting", "tabs", "activeTab"],
   "action": {
     "default_popup": "popup/popup.html",
@@ -14,11 +14,11 @@
   },
   "content_scripts": [
     {
-      "js": ["scripts/content.js"],
-      "matches": ["<all_urls>"]
+      "matches": ["<all_urls>"],
+      "js": ["content.bundle.js"]
     }
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.bundle.js"
   }
 }
