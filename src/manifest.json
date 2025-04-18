@@ -14,7 +14,13 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": [
+        "https://www.rappler.com/*",
+        "*://*.inquirer.net/*",
+        "https://www.philstar.com/*",
+        "https://www.abs-cbn.com/*",
+        "https://www.gmanetwork.com/news/*"
+      ],
       "js": ["content.bundle.js"]
     }
   ],
