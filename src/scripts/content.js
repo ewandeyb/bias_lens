@@ -44,6 +44,8 @@ function parseRappler(textContent) {
  * ============================================================================
  */
 
+let data = scrapeArticle();
+
 // we stringify the JSON for portability
 let text_output = JSON.stringify(data, null, 2);
 
