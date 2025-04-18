@@ -56,10 +56,20 @@ function parseInquirer(textContent) {
  * ============================================================================
  */
 
-let data = scrapeArticle();
+let articleData = scrapeArticle();
 
-// we stringify the JSON for portability
-let text_output = JSON.stringify(data, null, 2);
-
-/* TODO: Remove this line for production */
-console.log(text_output);
+chrome.runtime.sendMessage(
+  { action: "bias-analysis", data: articleData },
+  (response) => {
+    if (chrome.runtime.lastError) {
+      console.error("Error sending message to background script:", response);
+    }
+    if (response?.action === "bias-analysis-result") {
+      console.log("Bias analysis result:", response.data);
+    } else if (response?.action === "bias-analysis-error") {
+      console.error("Bias analysis error:", response.error);
+    } else {
+      console.warn("Unknown response received:", response);
+    }
+  }
+);
