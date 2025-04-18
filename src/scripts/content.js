@@ -12,8 +12,8 @@ let { Readability } = require("@mozilla/readability");
 function scrapeArticle() {
   let _document = document.cloneNode(true);
   let { title, textContent, siteName } = new Readability(_document).parse();
-  let URL = window.location.href;
-  let data = { url: URL, title, textContent, siteName };
+  let url = window.location.href;
+  let data = { url, title, textContent, siteName };
 
   // add future site specific parsing here
   switch (data.siteName) {
