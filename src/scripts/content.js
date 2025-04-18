@@ -2,14 +2,12 @@
 
 let { Readability } = require("@mozilla/readability");
 
-let _document = document.cloneNode(true);
-let { title, textContent, siteName } = new Readability(_document).parse();
+// we get the data is relevant to our API
+let { title, textContent, siteName } = new Readability(document).parse();
 let URL = window.location.href;
+let data = { url: URL, title, textContent, siteName };
 
-let text_output = JSON.stringify(
-  { url: URL, title, textContent, siteName },
-  null,
-  2,
-);
+// we stringify the JSON for portability
+let text_output = JSON.stringify(data, null, 2);
 
 console.log(text_output);
