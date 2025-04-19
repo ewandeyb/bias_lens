@@ -14,6 +14,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return false;
 });
 
+function parseData(data) {
+  const lines = data.split("\n");
+  const map = {};
+
+  lines.forEach((line) => {
+    const [key, ...value] = line.split(":");
+    if (key && value.length > 0) {
+      map[key.trim()] = value.join(":").trim();
+    }
+  });
+  return map;
+}
 async function handleBiasAnalysis(data, sendResponse) {
   try {
     console.log("Processing bias analysis for data:", data);
@@ -30,7 +42,8 @@ async function handleBiasAnalysis(data, sendResponse) {
       throw new Error(`Server error: ${response.statusText}`);
     }
 
-    const result = await response.json();
+    const res = await response.json();
+    const result = parseData(res.biasAnalysis);
     console.log("Bias analysis result:", result);
     sendResponse({ action: "bias-analysis-result", data: result });
   } catch (error) {
