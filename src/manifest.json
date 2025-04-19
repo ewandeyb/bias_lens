@@ -16,7 +16,7 @@
     {
       "matches": [
         "https://www.rappler.com/*",
-        "*://*.inquirer.net/*",
+        "https://*.inquirer.net/*",
         "https://www.philstar.com/*",
         "https://www.abs-cbn.com/*",
         "https://www.gmanetwork.com/news/*"
