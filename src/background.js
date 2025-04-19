@@ -21,7 +21,13 @@ function parseData(data) {
   lines.forEach((line) => {
     const [key, ...value] = line.split(":");
     if (key && value.length > 0) {
-      map[key.trim()] = value.join(":").trim();
+      const trimmedKey = key.trim();
+      const trimmedValue = value.join(":").trim();
+      if (trimmedKey == "Themes") {
+        map[trimmedKey] = trimmedValue.split(",").map((item) => item.trim());
+      } else {
+        map[trimmedKey] = trimmedValue;
+      }
     }
   });
   return map;
