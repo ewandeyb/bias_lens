@@ -1,4 +1,3 @@
-// background.js
 const serverUrl = "https://bias-lens-server-9feb0545fef6.herokuapp.com";
 console.log("Background script running.");
 
@@ -34,8 +33,6 @@ function parseData(data) {
 }
 async function handleBiasAnalysis(data, sendResponse) {
   try {
-    console.log("Processing bias analysis for data:", data);
-
     const response = await fetch(`${serverUrl}/analyze-bias`, {
       method: "POST",
       headers: {
@@ -50,10 +47,8 @@ async function handleBiasAnalysis(data, sendResponse) {
 
     const res = await response.json();
     const result = parseData(res.biasAnalysis);
-    console.log("Bias analysis result:", result);
     sendResponse({ action: "bias-analysis-result", data: result });
   } catch (error) {
-    console.error("Error during bias analysis:", error);
     sendResponse({ action: "bias-analysis-error", error: error.message });
   }
 }
