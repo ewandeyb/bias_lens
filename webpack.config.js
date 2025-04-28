@@ -20,14 +20,11 @@ module.exports = {
           to: "manifest.json",
         },
         {
-          from: path.resolve(__dirname, "src/popup/popup.html"),
-          to: "popup/popup.html",
+          from: path.resolve(__dirname, "src/popup"),
+          to: "popup",
         },
-        {
-          from: path.resolve(__dirname, "src/popup/popup.css"),
-          to: "popup/popup.css",
-        },
-        { from: path.resolve(__dirname, "src/images"), to: "images" },
+        { from: path.resolve(__dirname, "src/sidepanel"), to: "sidepanel" },
+        { from: path.resolve(__dirname, "src/assets"), to: "assets" },
       ],
     }),
   ],
