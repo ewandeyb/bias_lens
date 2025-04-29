@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bias Lens</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+
+  <body>
+		<div>
+			<img id="hero-image" src="../assets/images/no_article_found.svg" alt="hero image">
+			<h3>No article found!</h3>
+		</div>
+
+    <div>
+      <p>Want to manually add content instead?</p>
+      <textarea name="pasted-content" id="pasted-content" cols="30" rows="10" placeholder="Paste content here..."></textarea>
+    </div>
+
+    <button class="primary-button">Calculate Bias Score</button>
+
+  </body>
+</html>
+
+<style>
+	body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 1rem;
+	}
+
+  h3 {
+    color: var(--color-primary);
+    font-size: 2.5rem;
+  }
+
+	p {
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	#pasted-content {
+		width: 100%;
+		border-radius: 16px;
+		border: 1px solid var(--color-border);
+		padding: 16px;
+	}
+
+	#hero-image {
+		width: 100%;
+		max-width: 400px;
+		height: auto;
+		padding-top: 32px;
+	}
+</style>

@@ -1,59 +1,106 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Bias Lens</title>
-    <link rel="stylesheet" href="sidepanel.css" />
-  </head>
-
-  <body>
-		<div>
-			<img id="hero-image" src="../assets/images/no_article_found.svg" alt="hero image">
-			<h3>No article found!</h3>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Bias Lens</title>
+		<link rel="stylesheet" href="sidepanel.css" />
+	</head>
+	<body>
+		<div id="spectrum">
+			<div class="spectrum-labels">
+				<span style="color:#2B3467">Left</span>
+				<span style="color:#006B17">Center</span>
+				<span style="color: var(--color-red)">Right</span>
+			</div>
+			<div id="spectrum-bar">
+				<div id="pointer"></div>
+			</div>
 		</div>
+	
+		<div>
+			<div>
+				<div>
+					<span>leaning</span>
+					<span id="position"></span>
+				</div>
+				<span id="bias-score"></span>
+			</div>
+			<p>Bias Score according to Mistral AI</p>
+		</div>
+	
+		<div id="explanation" class="text-holder"></div>
+	
+		<div>
+			<p>Key phrases detected:</p>
+			<div id="key-phrases" class="text-holder"></div>
+		</div>
+	
+		<button class="primary-button">Find balancing articles</button>
 
-    <div>
-      <p>Want to manually add content instead?</p>
-      <textarea name="pasted-content" id="pasted-content" cols="30" rows="10" placeholder="Paste content here..."></textarea>
-    </div>
-
-    <button class="primary-button">Calculate Bias Score</button>
-
-  </body>
+		<script src="sidepanel.js" defer></script>
+	</body>
 </html>
 
 <style>
+	* { 
+		box-sizing: border-box; 
+	}
+
 	body {
 		display: flex;
+		width: 100%;
 		flex-direction: column;
 		align-items: center;
-		text-align: center;
 		gap: 1rem;
+		padding: 16px;
 	}
 
-  h3 {
-    color: var(--color-primary);
-    font-size: 2.5rem;
-  }
-
-	p {
-		font-size: 1rem;
-		font-weight: 700;
+	div {
+		width: 100%;
+		max-width: 600px;
 	}
 
-	#pasted-content {
+	#spectrum-bar {
+		width: 100%;
+		height: 12px;
+		background: linear-gradient(
+			to right,
+			#3957FF 0%,
+			#37FF48 50%,
+			#FF153A 100%
+		);
+		border-radius: 8px;
+		position: relative; /* for pointer */
+	}
+
+	#pointer {
+  width: 16px;
+  height: 16px;
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: -2px; /* To center it vertically over the bar */
+}
+
+	.spectrum-labels {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 4px;
+	}
+
+	.text-holder {
 		width: 100%;
 		border-radius: 16px;
 		border: 1px solid var(--color-border);
 		padding: 16px;
 	}
 
-	#hero-image {
-		width: 100%;
-		max-width: 400px;
-		height: auto;
-		padding-top: 32px;
+	.key-phrase {
+		background-color: var(--color-primary);
+		color: white;
+		padding: 4px 8px;
+		border-radius: 8px;
+		margin-right: 4px;
 	}
 </style>
