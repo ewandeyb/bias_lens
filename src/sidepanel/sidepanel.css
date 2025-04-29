@@ -1,0 +1,26 @@
+/* colors and typography */
+:root {
+  --color-bg: #f0f0f0;
+  --color-bg-alt: #ffffff;
+  --color-text: #333333;
+  --color-text-alt: #666666;
+  --color-border: #d9d9d9;
+  --color-primary: #6C63FF;
+  --color-red: #EB455F;
+  --color-blue:#386FF0;
+  --color-green: #118029;
+}
+
+.primary-button {
+  background-color: #58DA6033;
+  color: var(--color-text);
+  border: 1px solid var(--color-green);
+  padding: 12px 40px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background-color: var(--color-green);
+  color: var(--color-bg);
+}
