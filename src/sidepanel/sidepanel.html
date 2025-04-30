@@ -32,11 +32,15 @@
 		<div id="explanation" class="text-holder"></div>
 	
 		<div>
-			<p>Key phrases detected:</p>
+			<p>Key phrases detected</p>
 			<div id="key-phrases" class="text-holder"></div>
 		</div>
 	
-		<button class="primary-button">Find balancing articles</button>
+		<button class="primary-button" id="fetch-button">Find balancing articles</button>
+
+		<div id="balancing-articles">
+			<p>Suggested balancing articles</p>
+		</div>
 
 		<script src="sidepanel.js" defer></script>
 	</body>
@@ -75,13 +79,13 @@
 	}
 
 	#pointer {
-  width: 16px;
-  height: 16px;
-  background-color: #000;
-  border-radius: 50%;
-  position: absolute;
-  top: -2px; /* To center it vertically over the bar */
-}
+		width: 16px;
+		height: 16px;
+		background-color: #000;
+		border-radius: 50%;
+		position: absolute;
+		top: -2px; /* To center it vertically over the bar */
+	}
 
 	.spectrum-labels {
 		display: flex;
@@ -94,13 +98,13 @@
 		border-radius: 16px;
 		border: 1px solid var(--color-border);
 		padding: 16px;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.key-phrase {
-		background-color: var(--color-primary);
-		color: white;
-		padding: 4px 8px;
-		border-radius: 8px;
-		margin-right: 4px;
+		background-color: var(--color-grey);
+		padding: 8px 8px;
+		border: 2px solid #EAAD5E;
 	}
 </style>
