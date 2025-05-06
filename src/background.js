@@ -47,7 +47,8 @@ async function handleBiasAnalysis(data, sendResponse) {
 
     const res = await response.json();
     const result = parseData(res.biasAnalysis);
-    sendResponse({ action: "bias-analysis-result", data: result });
+    // sendResponse({ action: "bias-analysis-result", data: result });
+    chrome.runtime.sendMessage({ action: "bias-analysis-result", data: result });
   } catch (error) {
     sendResponse({ action: "bias-analysis-error", error: error.message });
   }
