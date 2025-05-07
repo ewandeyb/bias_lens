@@ -1,0 +1,13 @@
+/* colors and typography */
+:root {
+  --color-bg: #f0f0f0;
+  --color-bg-alt: #ffffff;
+  --color-text: #333333;
+  --color-text-alt: #666666;
+  --color-border: #cccccc;
+  --color-primary: #6C63FF;
+  --color-red: #EB455F;
+  --color-blue:#386FF0;
+  --color-green: #118029;
+}
+

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Bias Lens</title>
+		<link rel="stylesheet" href="sidepanel.css" />
+	</head>
+	<body>
+		<div id="spectrum">
+			<div class="spectrum-labels">
+				<span style="color:#2B3467">Left</span>
+				<span style="color:#006B17">Center</span>
+				<span style="color: var(--color-red)">Right</span>
+			</div>
+			<div id="spectrum-bar">
+				<div id="pointer"></div>
+			</div>
+		</div>
+	
+		<div>
+			<div id="hero">
+				<span id="bias-score" style="font-size: 100px;"></span>
+				<div>
+					<span style="color: var(--color-text); font-size: 30px;">leaning</span>
+					<span id="position" style="font-size: 30px;"></span>
+				</div>
+			</div>
+			<p style="margin-top: -0.75rem;">Bias Score according to Mistral AI</p>
+		</div>
+	
+		<div id="explanation" class="text-holder"></div>
+	
+		<div>
+			<p style="font-weight: 700;">Key phrases detected</p>
+			<div id="key-phrases" class="text-holder"></div>
+		</div>
+	
+		<button class="primary-button" id="fetch-button">Find balancing articles</button>
+
+		<div id="balancing-articles" class="text-holder hidden">
+			<p style="font-weight: 700;">Suggested balancing articles</p>
+			<div id="articles-container">
+			</div>
+		</div>
+
+		<script src="sidepanel.js" defer></script>
+	</body>
+</html>
+
+<style>
+	* { 
+		box-sizing: border-box; 
+	}
+
+	body {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		padding: 16px;
+	}
+
+	div {
+		width: 100%;
+		max-width: 600px;
+	}
+
+	#spectrum-bar {
+		width: 100%;
+		height: 12px;
+		background: linear-gradient(
+			to right,
+			#3957FF 0%,
+			#37FF48 50%,
+			#FF153A 100%
+		);
+		border-radius: 8px;
+		position: relative; /* for pointer */
+	}
+
+	#pointer {
+		width: 16px;
+		height: 16px;
+		background-color: #000;
+		border-radius: 50%;
+		position: absolute;
+		top: -2px; /* To center it vertically over the bar */
+	}
+
+	#hero {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: 700;
+	}
+	#hero > div {
+		display: flex;
+		flex-direction: column;
+		width: fit-content;
+	}
+
+	.hero-left {
+		color: var(--color-blue);
+	}
+
+	.hero-right {
+		flex-direction: row-reverse;
+		color: var(--color-red);
+	}
+	.hero-right > div {
+		text-align: right;
+	}
+
+	.hero-center {
+		color: var(--color-green);
+	}
+
+	.spectrum-labels {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 4px;
+	}
+
+	.text-holder {
+		width: 100%;
+		border-radius: 16px;
+		border: 1px solid var(--color-border);
+		padding: 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.key-phrase {
+		background-color: var(--color-grey);
+		padding: 8px 8px;
+		border-left: 3px solid #EAAD5E;
+		font-style: italic;
+	}
+
+	/* balancing articles */
+	#balancing-articles {
+		background-color: var(--color-grey);
+	}
+
+	.article-wrapper {
+		background-color: white;
+		border-left: 3px solid;
+		padding: 8px 8px;
+		margin-bottom: 8px;
+	}
+	/* on hover, get a bit bigger */
+	.article-wrapper:hover {
+		transform: scale(1.02);
+		transition: transform 0.2s;
+	}
+
+	.article {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.article-info {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.source {
+		font-style: italic;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+</style>
