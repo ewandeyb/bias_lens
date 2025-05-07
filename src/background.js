@@ -1,7 +1,11 @@
 const serverUrl = "https://bias-lens-server-9feb0545fef6.herokuapp.com";
 console.log("Background script running.");
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.sidePanel
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => console.error(error));
+
+chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   console.log("Background script received:", message);
 
   if (message.action === "bias-analysis") {
