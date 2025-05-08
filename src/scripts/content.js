@@ -27,6 +27,7 @@ function scrapeArticle() {
       data.textContent = parseInquirer(data.textContent);
       break;
     default:
+      data.textContent = undefined;
       break;
   }
 
@@ -58,8 +59,11 @@ function parseInquirer(textContent) {
 
 let articleData = scrapeArticle();
 
+let messageAction =
+  articleData.textContent != undefined ? "bias-analysis" : "default";
+
 chrome.runtime.sendMessage(
-  { action: "bias-analysis", data: articleData },
+  { action: messageAction, data: articleData },
   (response) => {
     if (chrome.runtime.lastError) {
       console.error("Error sending message to background script:", response);
@@ -72,5 +76,5 @@ chrome.runtime.sendMessage(
     } else {
       console.warn("Unknown response received:", response);
     }
-  }
+  },
 );
