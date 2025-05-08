@@ -1,11 +1,27 @@
 const serverUrl = "https://bias-lens-server-9feb0545fef6.herokuapp.com";
 console.log("Background script running.");
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.sidePanel
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => console.error(error));
+
+chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   console.log("Background script received:", message);
 
   if (message.action === "bias-analysis") {
     handleBiasAnalysis(message.data, sendResponse);
+    await chrome.sidePanel.setOptions({
+      path: `sidepanel/sidepanel.html`,
+      enabled: true,
+    });
+
+    return true;
+  } else if (message.action === "default") {
+    await chrome.sidePanel.setOptions({
+      path: `sidepanel/sidepanel_default.html`,
+      enabled: true,
+    });
+
     return true;
   }
 
@@ -31,6 +47,7 @@ function parseData(data) {
   });
   return map;
 }
+
 async function handleBiasAnalysis(data, sendResponse) {
   try {
     const response = await fetch(`${serverUrl}/analyze-bias`, {
@@ -48,7 +65,10 @@ async function handleBiasAnalysis(data, sendResponse) {
     const res = await response.json();
     const result = parseData(res.biasAnalysis);
     // sendResponse({ action: "bias-analysis-result", data: result });
-    chrome.runtime.sendMessage({ action: "bias-analysis-result", data: result });
+    chrome.runtime.sendMessage({
+      action: "bias-analysis-result",
+      data: result,
+    });
   } catch (error) {
     sendResponse({ action: "bias-analysis-error", error: error.message });
   }

@@ -3,7 +3,12 @@
   "name": "Bias Lens",
   "description": "A tool to analyze and visualize bias in text data.",
   "version": "1.0",
-  "permissions": ["scripting", "tabs", "activeTab", "sidePanel"],
+  "permissions": [
+    "scripting",
+    "tabs",
+    "activeTab",
+    "sidePanel"
+  ],
   "action": {
     "default_icon": {
       "16": "assets/images/icon16.png",
@@ -12,18 +17,17 @@
     }
   },
   "side_panel": {
-    "default_path": "sidepanel/sidepanel.html"
+    "default_path": "sidepanel/sidepanel_default.html"
   },
   "content_scripts": [
     {
       "matches": [
-        "https://www.rappler.com/*",
-        "https://*.inquirer.net/*",
-        "https://www.philstar.com/*",
-        "https://www.abs-cbn.com/*",
-        "https://www.gmanetwork.com/news/*"
+        "http://*/*",
+        "https://*/*"
       ],
-      "js": ["content.bundle.js"]
+      "js": [
+        "content.bundle.js"
+      ]
     }
   ],
   "background": {
