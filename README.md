@@ -35,7 +35,8 @@ cd bias_lens
 5. Set the parameters for your LLM agent to the following:
   - Summarize: [news text]"
   - Output: "Short summary."
-  - Context: news summarization, small free model
+  - Context: news summarization
+  - Model: Mistral Small 25.x
 6. Install `npm` dependencies.
 ```bash
 npm install
