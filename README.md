@@ -6,6 +6,8 @@ alternative perspectives—all without disrupting the browsing experience. Unlik
 existing tools that analyze entire websites or require users to visit external
 platforms, BiasCheck focuses on individual articles and integrates seamlessly
 into the user's workflow.
+![image](https://github.com/user-attachments/assets/7103300f-3c66-45cf-a21d-e7e029bd446f)
+Sample: Bias detection for Rappler article on online trends during election week
 
 <!-- 1. Clone the main project repository. -->
 <!-- 2. Get GNews API key. Get Mistral API key. (For Mistral agent in a separate -->
