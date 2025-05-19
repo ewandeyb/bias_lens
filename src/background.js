@@ -17,6 +17,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 
     return true;
   } else if (message.action === "default") {
+    handleBiasAnalysis(message.data, sendResponse);
     await chrome.sidePanel.setOptions({
       path: `sidepanel/sidepanel_default.html`,
       enabled: true,
