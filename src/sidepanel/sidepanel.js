@@ -19,7 +19,7 @@ const updateDOM = (result) => {
   const explanationEl = document.querySelector("#explanation");
   const phrasesEl = document.querySelector("#key-phrases");
 
-  if (scoreEl) scoreEl.innerText = `${biasStrength * 100}`; // Convert to percentage
+  if (scoreEl) scoreEl.innerText = `${Math.abs(biasStrength) * 100}`; // Convert to percentage
 
   if (positionEl) {
     const alignment =
@@ -65,8 +65,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const serverUrl = "https://bias-lens-server-9feb0545fef6.herokuapp.com";
 
-// Function to fetch balancing articles
+function transformQuery(query) {
+  // Replace 'AND' with 'OR' to widen the search
+  const transformedQuery = query.replace(/ AND /g, " OR ");
+  return transformedQuery;
+}
 
+
+// Function to fetch balancing articles from gnews API
 async function fetchBalancingArticles() {
   if (!result) {
     console.error("No result available to fetch balancing articles.");
@@ -74,23 +80,23 @@ async function fetchBalancingArticles() {
   }
 
   try {
-    const response = await fetch(`${serverUrl}/balance`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: JSON.stringify(result) }),
-    });
+    const query = transformQuery(result.keywords);
+    const encodedQuery = encodeURIComponent(query);
+    const apiKey = "YOUR_GNEWS_API_KEY"; // NOTE: add your own gnews api key here
+
+    const response = await fetch(
+      `https://gnews.io/api/v4/search?q=${encodedQuery}&lang=en&max=10&apikey=${apiKey}`
+    );
 
     if (!response.ok) {
-      throw new Error(`Server error: ${response.statusText}`);
+      throw new Error(`GNews API error: ${response.statusText}`);
     }
 
-    const res = await response.json();
-    // const data = parseData(res.biasAnalysis);
-    return res;
+    const data = await response.json();
+    console.log("GNews API response:", data);
+    return data.articles; // GNews returns { totalArticles, articles: [...] }
   } catch (error) {
-    return { action: "bias-analysis-error", error: error.message };
+    return { action: "gnews-fetch-error", error: error.message };
   }
 }
 
@@ -98,23 +104,21 @@ async function fetchBalancingArticles() {
 const showBalanceArticles = (articles) => {
   const balancingArticlesEl = document.querySelector("#balancing-articles");
   if (balancingArticlesEl) {
-    // visibility
     balancingArticlesEl.classList.toggle("hidden");
   }
 
   const articlesContainer = document.querySelector("#articles-container");
-
   articlesContainer.innerHTML = ""; // Clear previous articles
 
-  articles.forEach((article) => {
-    const biasStrength = parseFloat(article.biasStrength);
-    const alignment =
-      biasStrength > 0.33 ? "right" : biasStrength > -0.33 ? "center" : "left";
-    const color = biasStrength > 0.33 ? "red" : biasStrength > -0.33 ? "green" : "blue";
+  // filter out articles with the exact same title
+  const uniqueArticles = articles.filter((article, index, self) =>
+    index === self.findIndex((a) => a.title === article.title)
+  );
 
+  uniqueArticles.forEach((article) => {
     const wrapperEl = document.createElement("div");
     wrapperEl.className = "article-wrapper";
-    wrapperEl.style.borderColor = "var(--color-" + color + ")";
+
     const articleEl = document.createElement("a");
     articleEl.className = "article";
     articleEl.href = article.url;
@@ -124,35 +128,31 @@ const showBalanceArticles = (articles) => {
     titleEl.innerText = article.title || "Untitled Article";
     articleEl.appendChild(titleEl);
 
-    // div flex row space-between; left: bias strength, right: source
     const infoEl = document.createElement("div");
     infoEl.className = "article-info";
 
     const biasStrengthEl = document.createElement("span");
     biasStrengthEl.className = "bias-strength";
-    biasStrengthEl.innerText = `${Math.abs(biasStrength * 100)} ${alignment}`;
+    biasStrengthEl.innerText = "Unanalyzed Bias"; // Placeholder text
     infoEl.appendChild(biasStrengthEl);
 
     const sourceEl = document.createElement("span");
     sourceEl.className = "source";
-    sourceEl.innerText = article.source || "Unknown Source";
+    sourceEl.innerText = article.source?.name || "Unknown Source";
     infoEl.appendChild(sourceEl);
 
     articleEl.appendChild(infoEl);
-
     wrapperEl.appendChild(articleEl);
     articlesContainer.appendChild(wrapperEl);
   });
 };
 
+
 // onclick button, fetch balancing articles and update the DOM
 const fetchButton = document.querySelector("#fetch-button");
 if (fetchButton) {
   fetchButton.addEventListener("click", async () => {
-    const result = await fetchBalancingArticles();
-    // Parse the string into an array
-    const articles = JSON.parse(result.balanceAnalysis);
-
+    const articles = await fetchBalancingArticles();
     // Update the DOM with the new data
     showBalanceArticles(articles);
   });
